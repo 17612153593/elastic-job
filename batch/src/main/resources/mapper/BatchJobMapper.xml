@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" " http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tansun.batch.mapper.BatchJobDao" >
+    <sql id="restltMap">
+        b.ID as id,
+        b.JOB_NAME as jobName,
+        b.JAVA_CLASS as javaClass,
+        b.SEDULER_DATE as sedulerDate,
+        b.SUPER_JOB as superJob,
+        b.START_DATE as startDate,
+        b.STATE as state,
+        b.SUCCESS_DATE as successDate
+
+    </sql>
+
+    <select id="getOneBatchJob" parameterType="java.util.Map" resultType="com.tansun.batch.entity.BatchJobEntity">
+        SELECT
+            <include refid="restltMap"></include>
+        FROM batch_job b
+        WHERE 1=1
+        <if test="id != null ">
+            AND b.ID = #{id}
+        </if>
+        <if test="jobName != null ">
+            AND b.JOB_NAME = #{jobName}
+        </if>
+        <if test="javaClass != null ">
+            AND b.JAVA_CLASS = #{javaClass}
+        </if>
+        <if test="sedulerDate != null ">
+            AND b.SEDULER_DATE = #{sedulerDate}
+        </if>
+        <if test="superJob != null ">
+            AND b.SUPER_JOB = #{superJob}
+        </if>
+        <if test="startDate != null ">
+            AND b.START_DATE = #{startDate}
+        </if>
+        <if test="state != null ">
+            AND b.STATE = #{state}
+        </if>
+        <if test="successDate != null ">
+            AND b.SUCCESS_DATE = #{successDate}
+        </if>
+    </select>
+
+    <select id="getBatchJobList" parameterType="java.util.Map" resultType="com.tansun.batch.entity.BatchJobEntity">
+        SELECT
+            <include refid="restltMap"></include>
+        FROM batch_job b
+        WHERE 1=1
+        <if test="id != null ">
+            AND b.ID = #{id}
+        </if>
+        <if test="jobName != null ">
+            AND b.JOB_NAME = #{jobName}
+        </if>
+        <if test="javaClass != null ">
+            AND b.JAVA_CLASS = #{javaClass}
+        </if>
+        <if test="sedulerDate != null ">
+            AND b.SEDULER_DATE = #{sedulerDate}
+        </if>
+        <if test="superJob != null ">
+            AND b.SUPER_JOB = #{superJob}
+        </if>
+        <if test="startDate != null ">
+            AND b.START_DATE = #{startDate}
+        </if>
+        <if test="state != null ">
+            AND b.STATE = #{state}
+        </if>
+        <if test="successDate != null ">
+            AND b.SUCCESS_DATE = #{successDate}
+        </if>
+    </select>
+
+
+    <update id="updateBatchJob" parameterType="com.tansun.batch.entity.BatchJobEntity" >
+        update batch_job b
+        <trim prefix="set" suffixOverrides=",">
+            <if test="startDate!=null">START_DATE=#{startDate},</if>
+            <if test="state!=null">STATE=#{state},</if>
+            <if test="successDate!=null">SUCCESS_DATE=#{successDate},</if>
+        </trim>
+        where
+             b.ID = #{id}
+
+    </update>
+</mapper>
